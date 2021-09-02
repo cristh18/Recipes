@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Recipes</string>
+    <string name="copy_recipe_detail">Recipe Detail</string>
+    <string name="error_no_internet">Internet connection no available. Try again later.</string>
+    <string name="copy_description">Description</string>
+    <string name="copy_chef">Chef</string>
+</resources>
