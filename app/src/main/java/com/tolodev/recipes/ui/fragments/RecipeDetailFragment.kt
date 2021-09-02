@@ -1,10 +1,10 @@
 package com.tolodev.recipes.ui.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.core.text.color
@@ -35,6 +35,7 @@ class RecipeDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRecipeDetailBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding?.root
     }
 
@@ -104,6 +105,37 @@ class RecipeDetailFragment : Fragment() {
                     appendLine()
                 }
             }.append(text)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        requireActivity().menuInflater.inflate(R.menu.main_menu, menu);
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+        if (id == R.id.action_share) {
+            shareRecipe()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun shareRecipe() {
+        recipe?.let {
+            val uriImage: Uri = Uri.parse(recipe?.photoUrl)
+            val shareIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                val bundle: Bundle = Bundle().apply {
+                    putString(Intent.EXTRA_TEXT, recipe?.title.orEmpty())
+                    type = "text/plain"
+                    putParcelable(Intent.EXTRA_STREAM, uriImage)
+                    type = "image/jpeg"
+                }
+                putExtras(bundle)
+            }
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.copy_send_to)))
         }
     }
 }
