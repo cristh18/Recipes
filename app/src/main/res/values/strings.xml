@@ -4,4 +4,6 @@
     <string name="error_no_internet">Internet connection no available. Try again later.</string>
     <string name="copy_description">Description</string>
     <string name="copy_chef">Chef</string>
+    <string name="copy_share">Share</string>
+    <string name="copy_send_to">Send to: </string>
 </resources>
